@@ -1,0 +1,9 @@
+.formField {
+    display: flex;
+    flex-direction: column;
+}
+
+.miniField {
+    display: flex;
+    justify-content: space-between;
+}
