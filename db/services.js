@@ -1,10 +1,10 @@
-import { getConnection } from '@/db/conexion';
+import { getConnection } from '@/db/conexion'
 
 export async function sp_register_client(props) {
     let connection;
     try {
         const data = await props;
-        connection = await getConnection();
+        connection = await getConnection()
         const result = await connection.execute(
             `BEGIN
                 sp_register_client(:fName,:lName,:nName,:email_address,:dOfBirth,:gen,:pWord,:cRole,:uParent);
@@ -14,24 +14,24 @@ export async function sp_register_client(props) {
                 lName: data.lastName,
                 nName: data.nickname,
                 email_address: data.email,
-                dOfBirth: new Date(data.dob),
+                dOfBirth: data.dob,
                 gen: data.gender,
                 pWord: data.password,
                 cRole: 'ADMIN',
                 uParent: null
             },
             { autoCommit: true }
-        );
-        return result;
+        )
+        return result
     } catch (err) {
-        throw err;
+        throw err
     }
     finally {
         if (connection) {
             try {
-                await connection.close();
+                await connection.close()
             } catch (err) {
-                console.error('Error closing connection:', err);
+                console.error('Error closing connection:', err)
             }
         }
     }

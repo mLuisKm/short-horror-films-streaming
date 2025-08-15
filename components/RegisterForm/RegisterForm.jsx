@@ -17,16 +17,19 @@ export default function RegisterForm() {
         if (formData.get('user-password') !== formData.get('user-password-confirmation')) {
             newErrors.passwordConfirmation = 'Passwords do not match'
         }
-        const today = new Date()      
+        
+        const today = new Date()
         const dob = new Date(formData.get('user-dob'))
-        let age = today.getFullYear() - dob.getFullYear()
-        const monthDiff = today.getMonth() - dob.getMonth()
-        const dayDiff = today.getDate() - dob.getDate()
+        console.log(`Today: ${today}`)
+        console.log(`DOB: ${dob}`)
+        let age = today.getUTCFullYear - dob.getUTCFullYear()
+        const monthDiff = today.getUTCMonth() - dob.getUTCMonth()
+        const dayDiff = today.getUTCDate() - dob.getUTCDate()
         console.log(age)
-        console.log(`${today.getDate()} - ${dob.getDate()} = ${dayDiff}`)
+        console.log(`${today.getUTCDate()} - ${dob.getUTCDate()} = ${dayDiff}`)
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
             console.log('Subtracting one year from age')
-            age--;
+            age--
         }
         console.log(age)
         if (age < 13) {
