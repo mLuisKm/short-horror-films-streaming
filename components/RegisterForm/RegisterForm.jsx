@@ -1,34 +1,56 @@
-'use client';
-import { useState } from 'react';
-import styles from './RegisterForm.module.css';
-import { hashPassword } from '@/utils/hasher';
+'use client'
+import { useState } from 'react'
+import styles from './RegisterForm.module.css'
+import { hashPassword } from '@/utils/hasher'
 
 export default function RegisterForm() {
-    const [errors, setErrors] = useState({});
-    const [gender, setGender] = useState('M');
+    const [errors, setErrors] = useState({})
+    const [gender, setGender] = useState('M')
 
     function validate(formData) {
-        const newErrors = {};
-        if (!formData.get('user-first-name')) newErrors.firstName = 'First name is required';
-        if (!formData.get('user-last-name')) newErrors.lastName = 'Last name is required';
-        if (!formData.get('user-email')) newErrors.email = 'Email is required';
-        if (!formData.get('user-nickname')) newErrors.nickname = 'Nickname is required';
-        if (!formData.get('user-password')) newErrors.password = 'Password is required';
+        const newErrors = {}
+        if (!formData.get('user-first-name')) newErrors.firstName = 'First name is required'
+        if (!formData.get('user-last-name')) newErrors.lastName = 'Last name is required'
+        if (!formData.get('user-email')) newErrors.email = 'Email is required'
+        if (!formData.get('user-nickname')) newErrors.nickname = 'Nickname is required'
+        if (!formData.get('user-password')) newErrors.password = 'Password is required'
         if (formData.get('user-password') !== formData.get('user-password-confirmation')) {
-            newErrors.passwordConfirmation = 'Passwords do not match';
+            newErrors.passwordConfirmation = 'Passwords do not match'
         }
-        return newErrors;
+        const today = new Date()      
+        const dob = new Date(formData.get('user-dob'))
+        let age = today.getFullYear() - dob.getFullYear()
+        const monthDiff = today.getMonth() - dob.getMonth()
+        const dayDiff = today.getDate() - dob.getDate()
+        console.log(age)
+        console.log(`${today.getDate()} - ${dob.getDate()} = ${dayDiff}`)
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            console.log('Subtracting one year from age')
+            age--;
+        }
+        console.log(age)
+        if (age < 13) {
+            newErrors.dob = 'You must be at least 13 years old'
+        }
+        return newErrors
+    }
+
+    function validateResponse(response) {
+        const newErrors = {}
+        if (response.reason.includes('CLIENTS_NICK_UK')) newErrors.nickname = 'Nickname already exists'
+        if (response.reason.includes('CLIENTS_EMAIL_UK')) newErrors.email = 'Email already exists'
+        return newErrors
     }
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const validationErrors = validate(formData);
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const validationErrors = validate(formData)
          if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
+            setErrors(validationErrors)
+            return
         }
-        setErrors({});
+        setErrors({})
         const data = {
             firstName: formData.get('user-first-name'),
             lastName: formData.get('user-last-name'),
@@ -44,9 +66,15 @@ export default function RegisterForm() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        });
-        //const result = await response.json();
-        //console.log(result);
+        })
+        const result = await response.json()
+        if (response.ok) {
+            console.log("Registration successful:", result)
+        } else {
+            const responseErrors = validateResponse(result)
+            setErrors(responseErrors)
+            console.log("Registration failed:", result.reason)
+        }
     }
     return (
         <div className={styles.formContainer}>
@@ -78,6 +106,7 @@ export default function RegisterForm() {
                             <div className={styles.formField}>
                                 <label htmlFor='user-dob'>Date of Birth</label>
                                 <input type="date" name='user-dob' />
+                                {errors.dob && <span className={styles.error}>{errors.dob}</span>}
                             </div>
                             <div className={styles.formField}>
                                 <label htmlFor='user-gender'>Gender</label>
@@ -103,5 +132,5 @@ export default function RegisterForm() {
                 </div>
             </fieldset>
         </div>
-    );
+    )
 }

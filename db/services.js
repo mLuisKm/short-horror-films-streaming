@@ -24,7 +24,6 @@ export async function sp_register_client(props) {
         );
         return result;
     } catch (err) {
-        console.error('Error executing stored procedure:', err);
         throw err;
     }
     finally {
