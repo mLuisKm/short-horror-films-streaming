@@ -72,7 +72,7 @@ export default function RegisterForm() {
         })
         const result = await response.json()
         if (response.ok) {
-            console.log("Registration successful:", result)
+            console.log(result)
         } else {
             const responseErrors = validateResponse(result)
             setErrors(responseErrors)
