@@ -1,8 +1,19 @@
 'use client'
 import { useState } from 'react'
 import styles from './LoginForm.module.css'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export default function LoginForm() {
+    const signin = async (event) => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const response = await signIn("credentials", {
+            redirect: false,
+            emailOrNickname: formData.get('user-identifier'),
+            password: formData.get('user-password')
+        })
+        console.log('Sign in response:', response)
+    }
     const handlesubmit = async (event) => {
         event.preventDefault()
         const formData = new FormData(event.target)
@@ -32,7 +43,7 @@ export default function LoginForm() {
             <fieldset>
                 <legend>YourHorrorFilms</legend>
                 <div className={styles.formBody}>
-                    <form id='login-form' onSubmit={handlesubmit}>
+                    <form id='login-form' onSubmit={signin}>
                         <div className={styles.formField}>
                             <label htmlFor="user-nickname">Email or username</label>
                             <input type="text" name='user-identifier'/>
