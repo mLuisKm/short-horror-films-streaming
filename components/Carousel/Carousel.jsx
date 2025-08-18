@@ -1,3 +1,4 @@
+"use client"
 import styles from './Carousel.module.css'
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from 'embla-carousel-autoplay';
