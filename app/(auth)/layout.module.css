@@ -1,0 +1,18 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    max-height: fit-content;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.layoutContent {
+    height: auto;
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

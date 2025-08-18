@@ -1,9 +1,12 @@
+"use client"
 import Image from "next/image"
 import styles from "./page.module.css"
 import HomeHeader from "@/components/HomeHeader/HomeHeader"
 import Carousel from "@/components/Carousel/Carousel"
+import { useSession, signOut } from "next-auth/react"
 
 export default function Home() {
+    const { data: session } = useSession()
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -59,6 +62,11 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+                {session && 
+                <div>
+                    <h1>Hola, estas logueado</h1>
+                    <button onClick={() => signOut()}>Sign out</button>
+                </div>}
             </div>
         </div>
     )

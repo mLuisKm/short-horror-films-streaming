@@ -1,9 +1,22 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import styles from './RegisterForm.module.css'
 import { hashPassword } from '@/utils/hasher'
+import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react'
 
 export default function RegisterForm() {
+    const { data: session } = useSession()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (session) {
+            router.push("/")
+        }
+    }, [session, router])
+
     const [errors, setErrors] = useState({})
     const [gender, setGender] = useState('M')
 
@@ -81,57 +94,61 @@ export default function RegisterForm() {
     }
     return (
         <div className={styles.formContainer}>
-            <fieldset>
-                <legend>YourHorrorFilms</legend>
+            <fieldset className={styles.formFieldset}>
+                <legend>Your Horror Films</legend>
                 <div className={styles.formBody}>
                     <form id='register-form' onSubmit={handleSubmit}>
                         <div className={styles.formField}>
-                            <label htmlFor="user-first-name">First Name</label>
-                            <input type="text" name='user-first-name' />
+                            <label htmlFor="user-first-name" className={styles.fieldLabel}>First Name</label>
+                            <input type="text" name='user-first-name' className={styles.fieldInput}/>
                             {errors.firstName && <span className={styles.error}>{errors.firstName}</span>}
                         </div>
                         <div className={styles.formField}>
-                            <label htmlFor="user-last-name">Last Name</label>
-                            <input type="text" name='user-last-name' />
+                            <label htmlFor="user-last-name" className={styles.fieldLabel}>Last Name</label>
+                            <input type="text" name='user-last-name' className={styles.fieldInput}/>
                             {errors.lastName && <span className={styles.error}>{errors.lastName}</span>}
                         </div>
                         <div className={styles.formField}>
-                            <label htmlFor="user-nickname">Nickname</label>
-                            <input type="text" name='user-nickname' />
+                            <label htmlFor="user-nickname" className={styles.fieldLabel}>Nickname</label>
+                            <input type="text" name='user-nickname' className={styles.fieldInput}/>
                             {errors.nickname && <span className={styles.error}>{errors.nickname}</span>}
                         </div>
                         <div className={styles.formField}>
-                            <label htmlFor="user-email">Email</label>
-                            <input type="email" name='user-email' />
+                            <label htmlFor="user-email" className={styles.fieldLabel}>Email</label>
+                            <input type="email" name='user-email' className={styles.fieldInput}/>
                             {errors.email && <span className={styles.error}>{errors.email}</span>}
                         </div>
                         <div className={styles.miniField}>
                             <div className={styles.formField}>
-                                <label htmlFor='user-dob'>Date of Birth</label>
-                                <input type="date" name='user-dob' />
+                                <label htmlFor='user-dob' className={styles.fieldLabel}>Date of Birth</label>
+                                <input type="date" name='user-dob' className={styles.fieldInput}/>
                                 {errors.dob && <span className={styles.error}>{errors.dob}</span>}
                             </div>
                             <div className={styles.formField}>
-                                <label htmlFor='user-gender'>Gender</label>
-                                <select name="user-gender" id="user-gender" value={gender} onChange={(e) => setGender(e.target.value)}>
+                                <label htmlFor='user-gender' className={styles.fieldLabel}>Gender</label>
+                                <select name="user-gender" id="user-gender" className={styles.fieldInput} value={gender} onChange={(e) => setGender(e.target.value)}>
                                     <option value="M">M</option>
                                     <option value="F">F</option>
                                 </select>
                             </div>
                         </div>
                         <div className={styles.formField}>
-                            <label htmlFor="user-password">Password</label>
-                            <input type="password" name='user-password' />
+                            <label htmlFor="user-password" className={styles.fieldLabel}>Password</label>
+                            <input type="password" name='user-password' className={styles.fieldInput}/>
                         </div>
                         <div className={styles.formField}>
-                            <label htmlFor="user-confirm-password">Confirm Password</label>
-                            <input type="password" name='user-password-confirmation' />
+                            <label htmlFor="user-confirm-password" className={styles.fieldLabel}>Confirm Password</label>
+                            <input type="password" name='user-password-confirmation' className={styles.fieldInput}/>
                             {errors.passwordConfirmation && <span className={styles.error}>{errors.passwordConfirmation}</span>}
                         </div>
                         <div className={styles.formSubmit}>
                             <input type="submit" value="Register" className={styles.formButton}/>
                         </div>
                     </form>
+                </div>
+                <div className={styles.formFooter}>
+                    <p>Already have an account?</p>
+                    <Link href="/authenticate" className={styles.link}>Log in</Link>
                 </div>
             </fieldset>
         </div>
