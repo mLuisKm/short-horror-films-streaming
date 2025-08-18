@@ -1,6 +1,6 @@
-import GeneralForm from "@/components/GeneralForm/GeneralForm"
+import LoginForm from "@/components/LoginForm/LoginForm"
 export default function AuthenticatePage() {
     return (
-        <GeneralForm/>
+        <LoginForm/>
     )
 }
