@@ -7,7 +7,7 @@ export default function HomeHeader() {
             <h1 className={styles.title}>Your Horror Films</h1>
             <nav className={styles.nav}>
                 <Link href="/" className={styles.navItem}>Home</Link>
-                <Link href="/" className={styles.navItem}>Catalog</Link>
+                <Link href="/catalog" className={styles.navItem}>Catalog</Link>
                 <Link href="/about" className={styles.navItem}>About</Link>
                 <Link href="/authenticate" className={styles.navItem}>Sign in</Link>
             </nav>

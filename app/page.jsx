@@ -1,15 +1,10 @@
 import Image from "next/image"
 import styles from "./page.module.css"
-import HomeHeader from "@/components/HomeHeader/HomeHeader"
 import Carousel from "@/components/Carousel/Carousel"
-import SignOutButton from "@/components/SignOutButton/SignOutButton"
 
 export default function Home() {
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <HomeHeader/>
-            </div>
             <div className={styles.main}>
                 <div className={styles.wellcomePage}>
                     <div className={styles.titleBackground}>
@@ -60,7 +55,6 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <SignOutButton/>
             </div>
         </div>
     )
