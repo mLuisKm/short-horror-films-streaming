@@ -1,5 +1,6 @@
 import { getConnection } from '@/db/conexion'
 import oracledb from 'oracledb'
+import { verifyPassword } from '@/utils/hasher';
 
 export async function sp_register_client(props) {
     let connection

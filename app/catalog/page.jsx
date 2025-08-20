@@ -1,6 +1,7 @@
 import styles from "./catalog.module.css"
 import Image from "next/image"
 import React from "react"
+import Link from "next/link"
 
 export default async function Catalog() {
     const request = await fetch('http://localhost:3000/api/films')
@@ -49,13 +50,25 @@ export default async function Catalog() {
                             {/* Film options will go here */}
                             {result.map((filmInfo, index) => (
                                 <React.Fragment key={index}>
-                                    <Image
-                                        className={styles.filmItem}
-                                        src={filmInfo.film_portrait}
-                                        alt=""
-                                        width={180}
-                                        height={38}
-                                    />
+                                    <Link href="/catalog" className={styles.filmCard}>
+                                        <Image
+                                            className={styles.filmPortrait}
+                                            src={filmInfo.film_portrait}
+                                            alt=""
+                                            width={180}
+                                            height={38}
+                                        ></Image>
+                                        <div className={styles.filmData}>
+                                            <div className={styles.filmTitle}>
+                                                <p>{filmInfo.film_name}</p>
+                                                <p className={styles.duration}>{filmInfo.film_duration}</p>
+                                            </div>
+                                            <p className={styles.label}>By {filmInfo.film_author}</p>
+                                            <div className={styles.filmPrice}>
+                                                <p className={styles.label}>${filmInfo.film_price}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
                                 </React.Fragment>
                             ))}
                         </div>
