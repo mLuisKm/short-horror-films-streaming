@@ -36,22 +36,6 @@ export default function Home() {
                                     <li>Cancel anytime.</li>
                                 </ul>
                             </div>
-                            <div className={styles.plans}>
-                                <h3 className={styles.planTitle}>Plan 1</h3>
-                                <ul className={styles.planDetails}>
-                                    <li>Get access to all the horror shorts for just $5/month.</li>
-                                    <li>Create a child account or link with an existing account to share your subscription content</li>
-                                    <li>Cancel anytime.</li>
-                                </ul>
-                            </div>
-                            <div className={styles.plans}>
-                                <h3 className={styles.planTitle}>Plan 2</h3>
-                                <ul className={styles.planDetails}>
-                                    <li>Get access to all the horror shorts for just $10/month.</li>
-                                    <li>Create up to 3 child accounts or link with 3 existing accounts to share your subscription content</li>
-                                    <li>Cancel anytime.</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

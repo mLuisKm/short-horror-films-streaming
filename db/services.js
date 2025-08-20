@@ -1,6 +1,5 @@
 import { getConnection } from '@/db/conexion'
 import oracledb from 'oracledb'
-import { hashPassword, verifyPassword } from '@/utils/hasher'
 
 export async function sp_register_client(props) {
     let connection
@@ -71,6 +70,48 @@ export async function sp_login_client(props) {
             }
         }
         }
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
+
+export async function sp_list_films() {
+    let connection
+    try {
+        const plsql = `
+            DECLARE
+                c SYS_REFCURSOR;
+            BEGIN
+                OPEN c FOR SELECT product_id, product_name, product_price, film_duration, film_url, synopsis, film_author, portrait
+                            FROM products
+                            NATURAL JOIN short_films
+                            WHERE product_type = 'FILM';
+                DBMS_SQL.RETURN_RESULT(c);
+            END;`;
+        connection = await getConnection()
+        const request = await connection.execute(plsql);
+        let result = []
+        request.implicitResults[0].map((filmInfo, index) => (
+            result.push({
+                film_id: filmInfo[0],
+                film_name: filmInfo[1],
+                film_price: filmInfo[2],
+                film_duration: filmInfo[3],
+                film_url: filmInfo[4],
+                film_synopsis: filmInfo[5],
+                film_author: filmInfo[6],
+                film_portrait: filmInfo[7]
+            })
+        ))
+        return result
     } catch (err) {
         throw err
     } finally {
