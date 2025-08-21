@@ -33,15 +33,10 @@ export default function RegisterForm() {
         
         const today = new Date()
         const dob = new Date(formData.get('user-dob'))
-        console.log(`Today: ${today}`)
-        console.log(`DOB: ${dob}`)
         let age = today.getUTCFullYear - dob.getUTCFullYear()
         const monthDiff = today.getUTCMonth() - dob.getUTCMonth()
         const dayDiff = today.getUTCDate() - dob.getUTCDate()
-        console.log(age)
-        console.log(`${today.getUTCDate()} - ${dob.getUTCDate()} = ${dayDiff}`)
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-            console.log('Subtracting one year from age')
             age--
         }
         console.log(age)
@@ -84,12 +79,9 @@ export default function RegisterForm() {
             body: JSON.stringify(data),
         })
         const result = await response.json()
-        if (response.ok) {
-            console.log(result)
-        } else {
+        if (!response.ok) {
             const responseErrors = validateResponse(result)
             setErrors(responseErrors)
-            console.log("Registration failed:", result.reason)
         }
     }
     return (

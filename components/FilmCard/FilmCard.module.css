@@ -1,0 +1,79 @@
+.filmCard {
+    width: 30%;
+    height: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: rgba(25, 42, 92, 0.742);
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.filmCard:hover {
+    box-shadow: 0 4px 8px rgba(174, 174, 174, 0.2);
+}
+
+.filmData {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.duration {
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+.label {
+    font-weight: 400;
+    font-size: 90%;
+}
+
+.filmPortrait {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.filmTitle {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.filmPrice {
+    margin-top: 1rem;
+    background-color: greenyellow;
+    width: 5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    color: black;
+}
+
+.filmOptions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.pagination {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.pagination:hover {
+    font-weight: 600;
+}

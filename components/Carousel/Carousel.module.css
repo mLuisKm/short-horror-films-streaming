@@ -3,28 +3,13 @@
 }
 .emblaContainer {
   display: flex;
+  border-radius: 1rem;
 }
 
-.emblaSlide1 {
+.emblaSlide {
   flex: 0 0 100%;
   min-width: 0;
-  width: 5rem;
-  height: 13rem;
-  background-color: blue;
-}
-
-.emblaSlide2 {
-  flex: 0 0 100%;
-  min-width: 0;
-  width: 5rem;
-  height: 13rem;
-  background-color: red;
-}
-
-.emblaSlide3 {
-  flex: 0 0 100%;
-  min-width: 0;
-  width: 5rem;
-  height: 13rem;
-  background-color: green;
+  width: 1rem;
+  height: auto;
+  border-radius: 1rem;
 }

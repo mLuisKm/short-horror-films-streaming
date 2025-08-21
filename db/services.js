@@ -125,3 +125,29 @@ export async function sp_list_films() {
         }
     }
 }
+
+export async function select_portraits() {
+    let connection
+    try {
+        connection = await getConnection();
+        const request = await connection.execute(`select portrait
+                            FROM products
+                            NATURAL JOIN short_films
+                            WHERE product_type = 'FILM'`)
+        const result = []
+        request.rows.map((portraits, index) => (
+            result.push(portraits)
+        ))
+        return request.rows
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
