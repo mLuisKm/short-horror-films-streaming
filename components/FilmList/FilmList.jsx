@@ -1,10 +1,10 @@
 "use client"
-import styles from './FilmCard.module.css'
+import styles from './FilmList.module.css'
 import Image from "next/image"
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 
-export default function FilmCard() {
+export default function FilmList() {
     const [films, setFilms] = useState([])
     const [pagination, setPagination] = useState({
         text: 'View more...',
@@ -38,7 +38,7 @@ export default function FilmCard() {
                 {/* Film options will go here */}
                 {films.slice(0,pagination.value).map((filmInfo, index) => (
                     <React.Fragment key={index}>
-                        <Link href="/catalog" className={styles.filmCard}>
+                        <Link href={`/catalog/film-details/${filmInfo.film_id}`} className={styles.filmCard}>
                             <Image
                                 className={styles.filmPortrait}
                                 src={filmInfo.film_portrait}

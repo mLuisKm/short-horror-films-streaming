@@ -1,5 +1,5 @@
 import styles from "./catalog.module.css"
-import FilmCard from "@/components/FilmCard/FilmCard"
+import FilmCard from "@/components/FilmList/FilmList"
 
 export default async function Catalog() {
     const request = await fetch('http://localhost:3000/api/films')
