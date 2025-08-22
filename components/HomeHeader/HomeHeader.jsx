@@ -1,7 +1,11 @@
+"use client"
 import Link from "next/link"
 import styles from "./HomeHeader.module.css" 
+import { useSession } from "next-auth/react";
+import MyAccount from "../MyAccount/MyAccount";
 
 export default function HomeHeader() {
+    const { data: session } = useSession();
     return (
         <header className={styles.header}>
             <h1 className={styles.title}>Your Horror Films</h1>
@@ -9,7 +13,7 @@ export default function HomeHeader() {
                 <Link href="/" className={styles.navItem}>Home</Link>
                 <Link href="/catalog" className={styles.navItem}>Catalog</Link>
                 <Link href="/about" className={styles.navItem}>About</Link>
-                <Link href="/authenticate" className={styles.navItem}>Sign in</Link>
+                {session ? <MyAccount/> : <Link href="/authenticate" className={styles.navItem}>Sign in</Link>}
             </nav>
         </header>
     );

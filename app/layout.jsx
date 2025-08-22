@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Provider } from "./providers";
 import HomeHeader from "@/components/HomeHeader/HomeHeader";
-import SignOutButton from "@/components/SignOutButton/SignOutButton"
 import styles from "./layout.module.css";
 
 export const metadata = {
@@ -18,7 +17,6 @@ export default function RootLayout({ children }) {
                         <HomeHeader />
                         <div className={styles.layoutContent}>
                             {children}
-                            <SignOutButton />
                         </div>
                     </div>
                 </Provider>
