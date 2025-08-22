@@ -23,9 +23,9 @@ export default function MyAccount() {
                     height={1080}/>
             </button>
             <div className={toggle}>
-                <p><strong>Menú</strong></p>
+                <h1><strong>Welcome:</strong></h1>
                 <p>Edit Profile</p>
-                <p>Library</p>
+                <Link href='/library' onClick={handleToggle}>Library</Link>
                 <p>Manage Subscription</p>
                 <SignOutButton />
                 <div>

@@ -220,3 +220,86 @@ export async function sp_purchase(props) {
         }
     }
 }
+
+export async function sp_library(props) {
+    let connection
+    try {
+        const data = await props
+        const plsql = `
+            DECLARE
+                c SYS_REFCURSOR;
+            BEGIN
+                OPEN c FOR select product_id, product_name, portrait from short_films
+                natural join purchases
+                natural join products
+                where client_id=:cId;
+                DBMS_SQL.RETURN_RESULT(c);
+            END;`;
+        connection = await getConnection()
+        const request = await connection.execute(
+            plsql,
+            { cId: data.userId },
+            { implicitResults: true }
+        )
+        console.log('sp_library request:', await request.implicitResults)
+        let result = []
+        request.implicitResults[0].map((filmInfo, index) => (
+            result.push({
+                film_id: filmInfo[0],
+                film_name: filmInfo[1],
+                film_portrait: filmInfo[2]
+            })
+        ))
+        console.log('Library result:', result)
+        return result
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
+
+export async function sp_film(props) {
+    let connection
+    try {
+        const data = await props
+        console.log('sp_film called with data:', data)
+        console.log(typeof data.filmId, typeof data.userId)
+        connection = await getConnection()
+        const rawResult = await connection.execute(
+            `BEGIN sp_film(:cId, :pId, :pName, :fAuth, :fUrl, :fSynopsis); END;`,
+            {
+                cId: data.userId,
+                pId: data.filmId,
+                pName: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 50 },
+                fAuth: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 50 },
+                fUrl: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 255 },
+                fSynopsis: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 4000 }
+            }
+        )
+        const result = {
+            film_name: rawResult.outBinds.pName,
+            film_author: rawResult.outBinds.fAuth,
+            film_url: rawResult.outBinds.fUrl,
+            film_synopsis: rawResult.outBinds.fSynopsis
+        }
+        console.log('sp_film result:', result)
+        return result
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
