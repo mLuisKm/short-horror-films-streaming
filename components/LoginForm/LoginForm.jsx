@@ -8,10 +8,9 @@ import { useSession, signIn } from 'next-auth/react'
 export default function LoginForm() {
     const { data: session } = useSession()
     const router = useRouter()
-    console.log("Session:", session)
     useEffect(() => {
         if (session) {
-        router.push("/")
+            router.push("/")
         }
     }, [session, router])
     const handleSubmit = async (event) => {

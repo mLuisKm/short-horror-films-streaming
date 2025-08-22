@@ -1,0 +1,80 @@
+.button {
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-style: italic;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.confirmPurchase {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.confirm {
+    background-color: rgb(25, 34, 48);
+    border-radius: 1rem;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.cancelButton, .confirmButton {
+    width: 5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    border: none;
+    align-items: center;
+    border-radius: 1rem;
+    font-style: italic;
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+}
+
+.cancelButton {
+    background-color: grey;
+}
+
+.cancelButton:hover {
+    background-color: darkgrey;
+}
+
+.cancelButton:active {
+    background-color: lightgrey;
+}
+
+.confirmButton {
+    background-color: rgb(13, 116, 241);
+}
+
+.confirmButton:hover {
+    background-color: rgb(0, 102, 211);
+}
+
+.confirmButton:active {
+    background-color: rgb(0, 91, 189);
+}

@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    padding: 1rem 0;
+}
+
+.name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: 1em;
+}
+
+.label {
+    font-size: 1rem;
+    color: white;
+    margin-left: 1em;
+}
+
+.labelContainer {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.price {
+    color: rgb(0, 132, 255);
+    margin-left: 1em;
+}

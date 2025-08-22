@@ -91,7 +91,7 @@ export async function sp_list_films() {
             DECLARE
                 c SYS_REFCURSOR;
             BEGIN
-                OPEN c FOR SELECT product_id, product_name, product_price, film_duration, film_url, synopsis, film_author, portrait
+                OPEN c FOR SELECT product_id, product_name, product_price, film_duration, film_author, portrait
                             FROM products
                             NATURAL JOIN short_films
                             WHERE product_type = 'FILM';
@@ -106,11 +106,50 @@ export async function sp_list_films() {
                 film_name: filmInfo[1],
                 film_price: filmInfo[2],
                 film_duration: filmInfo[3],
-                film_url: filmInfo[4],
-                film_synopsis: filmInfo[5],
-                film_author: filmInfo[6],
-                film_portrait: filmInfo[7]
+                film_author: filmInfo[4],
+                film_portrait: filmInfo[5]
             })
+        ))
+        return result
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
+
+export async function film_details(film) {
+    let connection
+    try {
+        const plsql = `
+            DECLARE
+                c SYS_REFCURSOR;
+            BEGIN
+                OPEN c FOR SELECT product_id, product_name, product_price, film_duration, synopsis, film_author, portrait
+                            FROM products
+                            NATURAL JOIN short_films
+                            WHERE product_type = 'FILM' and product_id = :id;
+                DBMS_SQL.RETURN_RESULT(c);
+            END;`;
+        connection = await getConnection()
+        const request = await connection.execute(plsql, {id: film.id});
+        let result = {}
+        request.implicitResults[0].map((filmInfo, index) => (
+            result = {
+                film_id: filmInfo[0],
+                film_name: filmInfo[1],
+                film_price: filmInfo[2],
+                film_duration: filmInfo[3],
+                film_synopsis: filmInfo[4],
+                film_author: filmInfo[5],
+                film_portrait: filmInfo[6]
+            }
         ))
         return result
     } catch (err) {
@@ -139,6 +178,36 @@ export async function select_portraits() {
             result.push(portraits)
         ))
         return request.rows
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}
+
+export async function sp_purchase(props) {
+    let connection
+    console.log('sp_purchase called with props:', await props)
+    try {
+        const data = await props;
+        console.log('Purchase data:', data)
+        connection = await getConnection()
+        const result = await connection.execute(
+            `BEGIN
+                sp_purchase(:cId,:pId);
+            END;`,
+            {
+                cId: data.userId,
+                pId: data.film_id,
+            }
+        )
+        return result
     } catch (err) {
         throw err
     } finally {

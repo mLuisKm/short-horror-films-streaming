@@ -47,14 +47,13 @@
 
 .filmPrice {
     margin-top: 1rem;
-    background-color: greenyellow;
+    background-color: #c93d0a;
     width: 5rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
-    color: black;
 }
 
 .filmOptions {
