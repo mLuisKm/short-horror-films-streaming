@@ -241,7 +241,6 @@ export async function sp_library(props) {
             { cId: data.userId },
             { implicitResults: true }
         )
-        console.log('sp_library request:', await request.implicitResults)
         let result = []
         request.implicitResults[0].map((filmInfo, index) => (
             result.push({
@@ -250,7 +249,6 @@ export async function sp_library(props) {
                 film_portrait: filmInfo[2]
             })
         ))
-        console.log('Library result:', result)
         return result
     } catch (err) {
         throw err
@@ -269,8 +267,6 @@ export async function sp_film(props) {
     let connection
     try {
         const data = await props
-        console.log('sp_film called with data:', data)
-        console.log(typeof data.filmId, typeof data.userId)
         connection = await getConnection()
         const rawResult = await connection.execute(
             `BEGIN sp_film(:cId, :pId, :pName, :fAuth, :fUrl, :fSynopsis); END;`,
