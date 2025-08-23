@@ -1,4 +1,5 @@
 import { headers } from "next/headers"
+import styles from './page.module.css'
 export default async function WatchPage({ params }) {
     const headersList = await headers();
     const cookie = headersList.get('cookie');
@@ -13,19 +14,23 @@ export default async function WatchPage({ params }) {
     const res = await req.json()
     console.log('Film data:', res)
     return (
-        <div>
-            <h1>Watch Page - Film ID: {data.id}</h1>
-            {/* Add your watch page content here */}
-            <iframe
-                src={res.film_url}
-                title={res.film_name}
-                width="100%"
-                height="500px"
-                allowFullScreen
-            ></iframe>
-            <h2>{res.filmName}</h2>
-            <p>Author: {res.filmAuthor}</p>
-            <p>Synopsis: {res.filmSynopsis}</p>
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <div className={styles.videoContainer}>
+                    <iframe
+                    src={res.film_url}
+                    title={res.film_name}
+                    className={styles.video}
+                    allowFullScreen
+                />
+                </div>
+                <div className={styles.info}>
+                    <h2 className={styles.title}>{res.film_name}</h2>
+                    <p className={styles.author}>By: {res.film_author}</p>
+                    <p className={styles.synopsis}>Synopsis:</p>
+                    <p>{res.film_synopsis}</p>
+                </div>
+            </div>
         </div>
     )
 }
