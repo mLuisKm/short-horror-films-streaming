@@ -1,6 +1,11 @@
 import { headers } from "next/headers"
 import styles from './page.module.css'
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../../utils/auth";
+import { redirect } from "next/navigation";
 export default async function WatchPage({ params }) {
+    const session = await getServerSession(authOptions);
+    if (!session) { redirect('/authenticate'); }
     const headersList = await headers();
     const cookie = headersList.get('cookie');
     const data = await params;
