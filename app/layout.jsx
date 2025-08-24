@@ -12,14 +12,14 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                {/* <Provider> */}
+                <Provider>
                     <div className={styles.layoutContainer}>
-                        {/* <HomeHeader /> */}
+                        <HomeHeader />
                         <div className={styles.layoutContent}>
                             {children}
                         </div>
                     </div>
-                {/* </Provider> */}
+                </Provider>
             </body>
         </html>
     );
