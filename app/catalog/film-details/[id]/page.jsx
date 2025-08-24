@@ -3,7 +3,7 @@ import Image from "next/image"
 import BuyButton from "@/components/BuyButton/BuyButton"
 export default async function FilmDetails({ params }) {
     const film = await params
-    const request = await fetch(`${process.env.NEXT_BASE_URL}/api/film-details/${film.id}`)
+    const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/film-details/${film.id}`)
     const result = await request.json()
     const product = {
         productId: result.film_id,

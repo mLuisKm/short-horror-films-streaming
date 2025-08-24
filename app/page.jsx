@@ -2,7 +2,7 @@ import styles from "./page.module.css"
 import Carousel from "@/components/Carousel/Carousel"
 
 export default async function Home() {
-const request = await fetch(`${process.env.NEXT_BASE_URL}/api/portraits`)
+const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/portraits`)
 const portraits = await request.json()
     return (
         <div className={styles.container}>

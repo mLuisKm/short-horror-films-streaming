@@ -9,7 +9,7 @@ export default async function WatchPage({ params }) {
     const headersList = await headers();
     const cookie = headersList.get('cookie');
     const data = await params;
-    const req = await fetch(`${process.env.NEXT_BASE_URL}/api/film/${data.id}`, {
+    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/film/${data.id}`, {
             method: 'GET',
             headers : {
                 'Content-Type': 'application/json',

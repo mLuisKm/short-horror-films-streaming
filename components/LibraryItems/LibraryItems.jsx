@@ -28,7 +28,7 @@ export default function LibraryItems() {
     }
     useEffect(() => {
         (async () => {
-            const request = await fetch('http://localhost:3000/api/library')
+            const request = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/library`)
             const result = await request.json()
             setFilms(result)
         })()
