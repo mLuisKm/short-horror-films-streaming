@@ -25,9 +25,9 @@ export default function MyAccount() {
             <div className={toggle}>
                 <h1 className={styles.title}>Welcome:</h1>
                 <div className={styles.accountOptions}>
-                    <Link href='/library' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
+                    <Link href='/profile' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
                     <Link href='/library' onClick={handleToggle} className={styles.link}>Library</Link>
-                    <Link href='/library' onClick={handleToggle} className={styles.link}>Manage Subscription</Link>
+                    <Link href='/sub-manager' onClick={handleToggle} className={styles.link}>Manage Subscription</Link>
                     <button onClick={() => signOut()} className={styles.link}>Sign Out</button>
                     <div className={styles.closeContainer}>
                         <button onClick={handleToggle} className={styles.closeButton}>

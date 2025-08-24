@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { useRouter } from "next/navigation";
 import { useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react'
+import { useState } from 'react';
 
 export default function LoginForm() {
+    const [errorMessage, setErrorMessage] = useState(null);
     const { data: session } = useSession()
     const router = useRouter()
     useEffect(() => {
@@ -21,7 +23,11 @@ export default function LoginForm() {
             emailOrNickname: formData.get('user-identifier'),
             password: formData.get('user-password')
         })
-        console.log('Sign in response:', response)
+        if (response.error) {
+            setErrorMessage("Invalid credentials. Please try again.")
+        } else {
+            setErrorMessage(null)
+        }
     }
     return (
         <div className={styles.formContainer}>
@@ -29,6 +35,7 @@ export default function LoginForm() {
                 <legend>Your Horror Films</legend>
                 <div className={styles.formBody}>
                     <form id='login-form' onSubmit={handleSubmit}>
+                        <div className={styles.error}>{errorMessage}</div>
                         <div className={styles.formField}>
                             <label htmlFor="user-nickname" className={styles.fieldLabel}>Email or username</label>
                             <input type="text" name='user-identifier' className={styles.fieldInput}/>

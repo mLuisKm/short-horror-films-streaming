@@ -2,9 +2,11 @@
 import styles from './FilmList.module.css'
 import Image from "next/image"
 import React, { useState, useEffect } from "react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 
 export default function FilmList() {
+    const { data: session } = useSession()
     const [films, setFilms] = useState([])
     const [pagination, setPagination] = useState({
         text: 'View more...',
@@ -12,9 +14,25 @@ export default function FilmList() {
     })
     useEffect(() => {
         (async () => {
-            const request = await fetch('http://localhost:3000/api/films')
-            const result = await request.json()
-            setFilms(result)
+            const reqCatalog = await fetch('http://localhost:3000/api/films')
+            const resCatalog = await reqCatalog.json()
+            if (!session) {
+                resCatalog.map(film => {
+                    film.owned = false
+                    film.baseUrl = '/catalog/film-details/'
+                })
+                setFilms(resCatalog)
+                return
+            }
+            const reqLibrary = await fetch('http://localhost:3000/api/library')
+            const resultLibrary = await reqLibrary.json()
+            resCatalog.map(film => {
+                const owned = resultLibrary.some(libFilm => libFilm.film_id === film.film_id)
+                const baseUrl = owned ? '/watch/' : '/catalog/film-details/'
+                film.owned = owned
+                film.baseUrl = baseUrl
+            })
+            setFilms(resCatalog)
         })()
     }, [])
 
@@ -38,7 +56,7 @@ export default function FilmList() {
                 {/* Film options will go here */}
                 {films.slice(0,pagination.value).map((filmInfo, index) => (
                     <React.Fragment key={index}>
-                        <Link href={`/catalog/film-details/${filmInfo.film_id}`} className={styles.filmCard}>
+                        <Link href={`${filmInfo.baseUrl}${filmInfo.film_id}`} className={styles.filmCard}>
                             <Image
                                 className={styles.filmPortrait}
                                 src={filmInfo.film_portrait}
@@ -54,7 +72,7 @@ export default function FilmList() {
                                 </div>
                                 <p className={styles.label}>By {filmInfo.film_author}</p>
                                 <div className={styles.filmPrice}>
-                                    <p className={styles.label}>${filmInfo.film_price}</p>
+                                    <p className={styles.label}>{filmInfo.owned ? 'Owned' : `$ ${filmInfo.film_price}`}</p>
                                 </div>
                             </div>
                         </Link>

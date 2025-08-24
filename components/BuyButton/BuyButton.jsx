@@ -4,11 +4,18 @@ import ConfirmPurchase from '../ConfirmPurchase/ConfirmPurchase'
 import { useState } from 'react'
 import { useRouter } from "next/navigation";
 import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
 
 export default function BuyButton({ product}) {
+    const { data: session } = useSession()
     const [isVisible, setVisible] = useState(false)
     const router = useRouter()
+
+    const redirectToLogin = () => {
+        if (!session)
+        router.push("/authenticate")
+        else setVisible(true)
+    }
+
     const handleSubmit = async () => {
         const response = await fetch(`/api/purchase-film`, {
             method: 'POST',
@@ -29,7 +36,7 @@ export default function BuyButton({ product}) {
     console.log(product)
     return (
         <>
-            <input type="button" onClick={() => setVisible(true)} className={styles.button} value={`$ ${product.productPrice}`} />
+            <input type="button" onClick={redirectToLogin} className={styles.button} value={`$ ${product.productPrice}`} />
             <>
                 {isVisible && (
                     <div className={styles.confirmPurchase}>
