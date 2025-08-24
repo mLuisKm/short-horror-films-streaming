@@ -2,8 +2,8 @@ import styles from "./page.module.css"
 import Carousel from "@/components/Carousel/Carousel"
 
 export default async function Home() {
-const request = await fetch(`${process.env.NEXT_BASE_URL}/api/portraits`)
-const portraits = await request.json()
+// const request = await fetch(`${process.env.NEXT_BASE_URL}/api/portraits`)
+// const portraits = await request.json()
     return (
         <div className={styles.container}>
             <div className={styles.main}>
@@ -13,9 +13,9 @@ const portraits = await request.json()
                     </div>
                     <div className={styles.subtitle1}>
                         <h2>Get the best horror shorts at a frighteningly attractive price.</h2>
-                        <div className={styles.carousel}>
+                        {/* <div className={styles.carousel}>
                             <Carousel portraits={portraits}/>
-                        </div>
+                        </div> */}
                         <h2>Also enjoy our free catalog by creating an account</h2>
                     </div>
                     <div className={styles.subtitle2}>
