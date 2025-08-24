@@ -3,11 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-left: 8.5%;
+    margin-right: 8.5%;
 }
 
 .content {
     background-color: rgb(35, 35, 35);
-    width: 85%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,4 +58,20 @@
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.5;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .videoContainer {
+        width: 100%;
+        height: 15rem;
+    }
+
+    .info {
+        width: 100%;
+    }
+
+    .container {
+        margin-left: 12.5%;
+        margin-right: 12.5%;
+    }
 }

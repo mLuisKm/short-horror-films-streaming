@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import styles from "./MyAccount.module.css"
 import { useState } from "react"
-import SignOutButton from "../SignOutButton/SignOutButton"
+import { signOut } from "next-auth/react"
 export default function MyAccount() {
     const [toggle, setToggle] = useState(styles.accountMenu)
     function handleToggle() {
@@ -23,15 +23,17 @@ export default function MyAccount() {
                     height={1080}/>
             </button>
             <div className={toggle}>
-                <h1><strong>Welcome:</strong></h1>
-                <p>Edit Profile</p>
-                <Link href='/library' onClick={handleToggle}>Library</Link>
-                <p>Manage Subscription</p>
-                <SignOutButton />
-                <div>
-                    <button onClick={handleToggle}>
-                        Close
-                    </button>
+                <h1 className={styles.title}>Welcome:</h1>
+                <div className={styles.accountOptions}>
+                    <Link href='/library' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
+                    <Link href='/library' onClick={handleToggle} className={styles.link}>Library</Link>
+                    <Link href='/library' onClick={handleToggle} className={styles.link}>Manage Subscription</Link>
+                    <button onClick={() => signOut()} className={styles.link}>Sign Out</button>
+                    <div className={styles.closeContainer}>
+                        <button onClick={handleToggle} className={styles.closeButton}>
+                            <Image src='/right-arrow.png' alt="Close" width={1920} height={1080} className={styles.closeImage}/>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

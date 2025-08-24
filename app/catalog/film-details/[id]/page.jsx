@@ -29,12 +29,12 @@ export default async function FilmDetails({ params }) {
                         <p className={styles.title}>Title: {result.film_name}</p>
                         <p className={styles.label}>By: {result.film_author}</p>
                         <p className={styles.label}>Duration: {result.film_duration} min</p>
+                    </div>
+                    <div className={styles.itemDetails}>
+                        <p className={styles.synopsis}><strong>Synopsis: </strong>{result.film_synopsis}</p>
                         <div className={styles.filmPrice}>
                             <BuyButton product={product}/>
                         </div>
-                    </div>
-                    <div className={styles.itemDetails}>
-                        <p className={styles.synopsis}>Synopsis: {result.film_synopsis}</p>
                     </div>
                 </div>
             </div>

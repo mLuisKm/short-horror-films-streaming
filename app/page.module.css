@@ -100,3 +100,14 @@
 .carousel {
   margin: 2rem 0;;
 }
+
+@media (max-width: 768px) {
+  .planContent {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .silverPlan, .goldenPlan {
+      width: 80%;
+  }
+}

@@ -36,8 +36,8 @@ export default function BuyButton({ product}) {
                         <div className={styles.confirm}>
                             <ConfirmPurchase product={product}/>
                             <div className={styles.buttonContainer}>
-                                <button className={styles.cancelButton} onClick={() => setVisible(false)}>Cancel</button>
                                 <button className={styles.confirmButton} onClick={handleSubmit}>Confirm</button>
+                                <button className={styles.cancelButton} onClick={() => setVisible(false)}>Cancel</button>
                             </div>
                         </div>
                     </div>

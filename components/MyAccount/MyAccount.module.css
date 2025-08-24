@@ -45,3 +45,89 @@
     padding: 20px;
     transition: right 1s;
 }
+
+.accountOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+}
+.link:hover {
+    text-decoration: underline;
+}
+.link:active {
+    color: gray;
+}
+
+.closeButton {
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: rgb(13, 116, 241);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.closeButton:hover {
+    background-color: rgb(0, 102, 211);
+}
+.closeButton:active {
+    background-color: rgb(0, 82, 171);
+}
+
+.closeImage {
+    width: 1.5rem;
+    height: 2rem;
+}
+
+.closeContainer {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .accountMenu {
+        position: fixed;
+        top: 0;
+        right: -40%;
+        width: 30%;
+        height: 100%;
+        background: #222;
+        color: white;
+        padding: 20px;
+        transition: right 1s;
+        z-index: 9999;
+    }
+
+    .accountMenuOpen {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 30%;
+        height: 100%;
+        background: #222;
+        color: white;
+        padding: 20px;
+        transition: right 1s;
+        z-index: 9999;
+    }
+
+}

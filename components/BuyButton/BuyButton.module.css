@@ -34,9 +34,9 @@
 .buttonContainer {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    margin-left: 4rem;
-    margin-right: 4rem;
+    justify-content: space-between;
+    margin-left: 2rem;
+    margin-right: 2rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
