@@ -1,8 +1,6 @@
 import styles from "./catalog.module.css"
 import FilmList from "@/components/FilmList/FilmList"
 
-export const dynamic = "force-dynamic";
-
 export default async function Catalog() {
     return (
         <div className={styles.container}>
