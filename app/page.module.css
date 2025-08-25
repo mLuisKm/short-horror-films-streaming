@@ -19,6 +19,14 @@
   margin: 2rem 0;
 }
 
+@media (max-width: 768px) {
+  .title {
+      max-width: 90%;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+  }
+}
+
 .titleBackground {
   background-image: url('/peakpx.jpg');
   display: flex;
