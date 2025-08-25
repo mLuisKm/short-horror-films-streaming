@@ -16,7 +16,7 @@ export default function FilmList() {
     })
     useEffect(() => {
         (async () => {
-            const reqCatalog = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/films`)
+            const reqCatalog = await fetch(`/api/films`)
             const resCatalog = await reqCatalog.json()
             if (!session) {
                 resCatalog.map(film => {
@@ -26,7 +26,7 @@ export default function FilmList() {
                 setFilms(resCatalog)
                 return
             }
-            const reqLibrary = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/library`)
+            const reqLibrary = await fetch(`/api/library`)
             const resultLibrary = await reqLibrary.json()
             resCatalog.map(film => {
                 const owned = resultLibrary.some(libFilm => libFilm.film_id === film.film_id)
