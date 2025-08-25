@@ -68,6 +68,12 @@ html {
   padding: 0;
 }
 
+@media (max-width: 420px) {
+  html, body {
+    width: 420px;
+  }
+}
+
 legend {
   font-family: "Creepster", system-ui;
   color: red;
