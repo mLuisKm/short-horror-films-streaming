@@ -12,7 +12,6 @@ export default async function FilmDetails({ params }) {
         productDuration: result.film_duration,
         productPrice: result.film_price
     }
-    console.log(result)
     return (
         <div className={styles.container}>
             <div className={styles.content}>

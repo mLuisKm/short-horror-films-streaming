@@ -17,7 +17,6 @@ export default async function WatchPage({ params }) {
                 }
             })
     const res = await req.json()
-    console.log('Film data:', res)
     return (
         <div className={styles.container}>
             <div className={styles.content}>

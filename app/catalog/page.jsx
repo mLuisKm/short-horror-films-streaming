@@ -40,6 +40,7 @@ export default async function Catalog() {
                         <h2>Film Collection</h2>
                         <p>Explore our curated selection of films.</p>
                     </div>
+                    <p>Note: Since this webpage was made with practice purpose, the videos are from youtube and some of them have age restriction on youtube.</p>
                     <div className={styles.films}>
                         <FilmList/>
                     </div>

@@ -193,10 +193,8 @@ export async function select_portraits() {
 
 export async function sp_purchase(props) {
     let connection
-    console.log('sp_purchase called with props:', await props)
     try {
         const data = await props;
-        console.log('Purchase data:', data)
         connection = await getConnection()
         const result = await connection.execute(
             `BEGIN
@@ -285,7 +283,6 @@ export async function sp_film(props) {
             film_url: rawResult.outBinds.fUrl,
             film_synopsis: rawResult.outBinds.fSynopsis
         }
-        console.log('sp_film result:', result)
         return result
     } catch (err) {
         throw err

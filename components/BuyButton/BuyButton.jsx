@@ -33,7 +33,6 @@ export default function BuyButton({ product}) {
             alert('Purchase failed. Please try again.')
         }
     }
-    console.log(product)
     return (
         <>
             <input type="button" onClick={redirectToLogin} className={styles.button} value={`$ ${product.productPrice}`} />

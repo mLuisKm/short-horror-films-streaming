@@ -3,7 +3,6 @@ export const authOptions = {
     providers: [
             CredentialsProvider({
                 async authorize(credentials) {
-                    console.log('Credentials:', credentials)
                     const res = await fetch('http://localhost:3000/api/login', {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -12,7 +11,6 @@ export const authOptions = {
                         password: credentials.password})
                 })
                 const user = await res.json()
-                console.log('User:', user)
                 if (res.ok && user.userId && user.role) return user
                 return null
                 }

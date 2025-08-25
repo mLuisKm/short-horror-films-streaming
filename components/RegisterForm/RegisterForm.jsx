@@ -39,7 +39,6 @@ export default function RegisterForm() {
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
             age--
         }
-        console.log(age)
         if (age < 13) {
             newErrors.dob = 'You must be at least 13 years old'
         }
