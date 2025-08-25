@@ -296,3 +296,35 @@ export async function sp_film(props) {
         }
     }
 }
+
+export async function sp_balance(props) {
+    let connection
+    try {
+        const data = await props
+        console.log(data)
+        connection = await getConnection()
+        const rawResult = await connection.execute(
+            `BEGIN sp_balance(:cId, :cNickname, :cBalance); END;`,
+            {
+                cId: parseInt(data),
+                cNickname: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 50 },
+                cBalance: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER }
+            }
+        )
+        const result = {
+            nickname: rawResult.outBinds.cNickname,
+            balance: rawResult.outBinds.cBalance
+        }
+        return result
+    } catch (err) {
+        throw err
+    } finally {
+        if (connection) {
+            try {
+                await connection.close()
+            } catch (err) {
+                console.error('Error closing connection:', err)
+            }
+        }
+    }
+}

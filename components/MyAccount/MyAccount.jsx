@@ -4,8 +4,10 @@ import Image from "next/image"
 import styles from "./MyAccount.module.css"
 import { useState } from "react"
 import { signOut } from "next-auth/react"
+import { useEffect } from "react"
 export default function MyAccount() {
     const [toggle, setToggle] = useState(styles.accountMenu)
+    const [userInfo, setUserInfo] = useState({})
     function handleToggle() {
         if (toggle === styles.accountMenu) {
             setToggle(styles.accountMenuOpen)
@@ -13,6 +15,13 @@ export default function MyAccount() {
             setToggle(styles.accountMenu)
         }
     }
+    useEffect(() => {
+        (async () => {
+            const request = await fetch('/api/balance')
+            const response = await request.json()
+            setUserInfo(response)
+        })()
+    }, []);
     return (
         <div>
             <button className={styles.accountButton} onClick={handleToggle}>
@@ -24,6 +33,8 @@ export default function MyAccount() {
             </button>
             <div className={toggle}>
                 <h1 className={styles.title}>Welcome:</h1>
+                <h2 className={styles.userNickname}>{userInfo.nickname}</h2>
+                <h2 className={styles.userBalance}>Balance: ${userInfo.balance}</h2>
                 <div className={styles.accountOptions}>
                     <Link href='/profile' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
                     <Link href='/library' onClick={handleToggle} className={styles.link}>Library</Link>
