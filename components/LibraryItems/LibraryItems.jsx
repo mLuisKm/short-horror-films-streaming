@@ -4,6 +4,8 @@ import Image from "next/image"
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 
+export const dynamic = 'force-dynamic';
+
 export default function LibraryItems() {
     const [films, setFilms] = useState([])
     const [pagination, setPagination] = useState({
