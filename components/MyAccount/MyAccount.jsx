@@ -39,7 +39,7 @@ export default function MyAccount() {
                     <Link href='/profile' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
                     <Link href='/library' onClick={handleToggle} className={styles.link}>Library</Link>
                     <Link href='/sub-manager' onClick={handleToggle} className={styles.link}>Manage Subscription</Link>
-                    <button onClick={() => signOut({ callbackUrl: '/', redirect:true })} className={styles.link}>Sign Out</button>
+                    <button onClick={() => signOut()} className={styles.link}>Sign Out</button>
                     <div className={styles.closeContainer}>
                         <button onClick={handleToggle} className={styles.closeButton}>
                             <Image src='/right-arrow.png' alt="Close" width={1920} height={1080} className={styles.closeImage}/>
