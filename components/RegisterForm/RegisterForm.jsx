@@ -30,6 +30,9 @@ export default function RegisterForm() {
         if (formData.get('user-password') !== formData.get('user-password-confirmation')) {
             newErrors.passwordConfirmation = 'Passwords do not match'
         }
+        if (formData.get('user-email') && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.get('user-email'))) {
+            newErrors.email = 'Invalid email address'
+        }
         
         const today = new Date()
         const dob = new Date(formData.get('user-dob'))
@@ -81,6 +84,9 @@ export default function RegisterForm() {
         if (!response.ok) {
             const responseErrors = validateResponse(result)
             setErrors(responseErrors)
+        } else {
+            setErrors({ success: 'Registration successful! Redirecting to login...' })
+            router.push('/authenticate')
         }
     }
     return (
@@ -134,6 +140,9 @@ export default function RegisterForm() {
                         </div>
                         <div className={styles.formSubmit}>
                             <input type="submit" value="Register" className={styles.formButton}/>
+                        </div>
+                        <div className={styles.successMessage}>
+                            {errors.success && <span className={styles.success}>{errors.success}</span>}
                         </div>
                     </form>
                 </div>

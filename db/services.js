@@ -301,7 +301,6 @@ export async function sp_balance(props) {
     let connection
     try {
         const data = await props
-        console.log(data)
         connection = await getConnection()
         const rawResult = await connection.execute(
             `BEGIN sp_balance(:cId, :cNickname, :cBalance); END;`,
