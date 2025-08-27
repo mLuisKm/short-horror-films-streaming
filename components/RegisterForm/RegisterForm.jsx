@@ -40,9 +40,6 @@ export default function RegisterForm() {
         let age = today.getUTCFullYear() - dob.getUTCFullYear()
         const monthDiff = today.getUTCMonth() - dob.getUTCMonth()
         const dayDiff = today.getUTCDate() - dob.getUTCDate()
-        console.log(`Años: ${today.getUTCFullYear()}-${dob.getUTCFullYear()}=${age}`)
-        console.log(`Meses: ${today.getUTCMonth()}-${dob.getUTCMonth()}=${monthDiff}`)
-        console.log(`Dias: ${today.getUTCDate()}-${dob.getUTCDate()}=${dayDiff}`)
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
             age--
         }
