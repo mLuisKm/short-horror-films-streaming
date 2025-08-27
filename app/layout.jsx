@@ -2,6 +2,7 @@ import "./globals.css";
 import { Provider } from "./providers";
 import HomeHeader from "@/components/HomeHeader/HomeHeader";
 import styles from "./layout.module.css";
+import { BalanceProvider } from "@/utils/context";
 
 export const metadata = {
   title: "Your Horror Films",
@@ -19,12 +20,14 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <Provider>
-                    <div className={styles.layoutContainer}>
-                        <HomeHeader />
-                        <div className={styles.layoutContent}>
-                            {children}
+                    <BalanceProvider>
+                        <div className={styles.layoutContainer}>
+                            <HomeHeader />
+                            <div className={styles.layoutContent}>
+                                {children}
+                            </div>
                         </div>
-                    </div>
+                    </BalanceProvider>
                 </Provider>
             </body>
         </html>

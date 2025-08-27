@@ -2,12 +2,13 @@
 import Link from "next/link"
 import Image from "next/image"
 import styles from "./MyAccount.module.css"
-import { useState } from "react"
-import { signOut } from "next-auth/react"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
+import { signOut, useSession } from "next-auth/react"
+import { useBalance } from "@/utils/context"
 export default function MyAccount() {
     const [toggle, setToggle] = useState(styles.accountMenu)
-    const [userInfo, setUserInfo] = useState({})
+    const { balance, refreshBalance} = useBalance()
+    const { data: session } = useSession()
     function handleToggle() {
         if (toggle === styles.accountMenu) {
             setToggle(styles.accountMenuOpen)
@@ -17,9 +18,8 @@ export default function MyAccount() {
     }
     useEffect(() => {
         (async () => {
-            const request = await fetch('/api/balance')
-            const response = await request.json()
-            setUserInfo(response)
+            refreshBalance()
+            console.log('Mi pene erecto',balance)
         })()
     }, []);
     return (
@@ -33,8 +33,8 @@ export default function MyAccount() {
             </button>
             <div className={toggle}>
                 <h1 className={styles.title}>Welcome:</h1>
-                <h2 className={styles.userNickname}>{userInfo.nickname}</h2>
-                <h2 className={styles.userBalance}>Balance: ${userInfo.balance}</h2>
+                <h2 className={styles.userNickname}>{balance?.nickname}</h2>
+                <h2 className={styles.userBalance}>Balance: ${balance?.balance}</h2>
                 <div className={styles.accountOptions}>
                     <Link href='/profile' onClick={handleToggle} className={styles.link}>Edit Profile</Link>
                     <Link href='/library' onClick={handleToggle} className={styles.link}>Library</Link>

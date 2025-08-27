@@ -27,6 +27,7 @@ export default function RegisterForm() {
         if (!formData.get('user-email')) newErrors.email = 'Email is required'
         if (!formData.get('user-nickname')) newErrors.nickname = 'Nickname is required'
         if (!formData.get('user-password')) newErrors.password = 'Password is required'
+        if (!formData.get('user-dob')) newErrors.dob = 'Date of birth is required'
         if (formData.get('user-password') !== formData.get('user-password-confirmation')) {
             newErrors.passwordConfirmation = 'Passwords do not match'
         }
@@ -36,9 +37,12 @@ export default function RegisterForm() {
         
         const today = new Date()
         const dob = new Date(formData.get('user-dob'))
-        let age = today.getUTCFullYear - dob.getUTCFullYear()
+        let age = today.getUTCFullYear() - dob.getUTCFullYear()
         const monthDiff = today.getUTCMonth() - dob.getUTCMonth()
         const dayDiff = today.getUTCDate() - dob.getUTCDate()
+        console.log(`Años: ${today.getUTCFullYear()}-${dob.getUTCFullYear()}=${age}`)
+        console.log(`Meses: ${today.getUTCMonth()}-${dob.getUTCMonth()}=${monthDiff}`)
+        console.log(`Dias: ${today.getUTCDate()}-${dob.getUTCDate()}=${dayDiff}`)
         if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
             age--
         }

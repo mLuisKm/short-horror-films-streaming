@@ -18,6 +18,7 @@ export default function FilmList() {
         (async () => {
             const reqCatalog = await fetch(`/api/films`)
             const resCatalog = await reqCatalog.json()
+            resCatalog.sort((a, b) => a.film_name.localeCompare(b.film_name))
             if (!session) {
                 resCatalog.map(film => {
                     film.owned = false
@@ -26,7 +27,7 @@ export default function FilmList() {
                 setFilms(resCatalog)
                 return
             }
-            const reqLibrary = await fetch(`/api/library`)
+            const reqLibrary = await fetch(`/api/library`, { cache: "no-store" })
             const resultLibrary = await reqLibrary.json()
             resCatalog.map(film => {
                 const owned = resultLibrary.some(libFilm => libFilm.film_id === film.film_id)
@@ -36,7 +37,7 @@ export default function FilmList() {
             })
             setFilms(resCatalog)
         })()
-    }, [])
+    }, [session])
 
     function paginate() {
         if (pagination.value == 6) {

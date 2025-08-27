@@ -230,7 +230,8 @@ export async function sp_library(props) {
                 OPEN c FOR select product_id, product_name, portrait from short_films
                 natural join purchases
                 natural join products
-                where client_id=:cId;
+                where client_id=:cId
+                order by product_name asc;
                 DBMS_SQL.RETURN_RESULT(c);
             END;`;
         connection = await getConnection()

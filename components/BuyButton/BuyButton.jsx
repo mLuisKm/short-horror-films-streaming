@@ -4,8 +4,10 @@ import ConfirmPurchase from '../ConfirmPurchase/ConfirmPurchase'
 import { useState } from 'react'
 import { useRouter } from "next/navigation";
 import { useSession } from 'next-auth/react'
+import { useBalance } from '@/utils/context'
 
 export default function BuyButton({ product}) {
+    const { balance, refreshBalance} = useBalance()
     const { data: session } = useSession()
     const [isVisible, setVisible] = useState(false)
     const router = useRouter()
@@ -27,6 +29,7 @@ export default function BuyButton({ product}) {
 
         if (response.ok) {
             alert('Purchase successful!')
+            await refreshBalance()
             router.push('/catalog')
             setVisible(false)
         } else {
