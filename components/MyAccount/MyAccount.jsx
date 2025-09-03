@@ -19,7 +19,6 @@ export default function MyAccount() {
     useEffect(() => {
         (async () => {
             refreshBalance()
-            console.log('Mi pene erecto',balance)
         })()
     }, []);
     return (
